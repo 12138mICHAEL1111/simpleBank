@@ -1,10 +1,4 @@
 package main
-
-import (
-	"fmt"
-	"math/rand"
-)
-
 type Animal struct{
 
 }
@@ -29,9 +23,8 @@ func New(d dogInterface) *dog{
 	return &dog{d:d}
 }
 
-func main(){
-	// a := Animal{}
-	// tom := New(&a)
-	// tom.d.eat()
-	fmt.Print(rand.Int63n(1))
+func testInterface(){
+	a := Animal{}
+	tom := New(&a)
+	tom.d.eat()
 }

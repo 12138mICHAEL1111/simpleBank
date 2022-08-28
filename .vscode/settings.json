@@ -1,3 +1,9 @@
 {
-    "makefile.extensionOutputFolder": "./.vscode"
+    "makefile.extensionOutputFolder": "./.vscode",
+    "code-runner.executorMap": {
+        "go": "cd $dir && go run .",
+    },
+    "code-runner.executorMapByGlob": {
+        "$dir\\*.go": "go"
+    }
 }
