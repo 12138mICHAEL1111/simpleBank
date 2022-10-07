@@ -13,20 +13,22 @@ jobs:
 
       services:
       # Label used to access the service container
-      postgres:
-        # Docker Hub image
-        image: postgres12
-        # Provide the password for postgres
-        env:
-          POSTGRES_USER: root
-          POSTGRES_PASSWORD: secret
-          POSTGRES_DB: simple_bank
-        # Set health checks to wait until postgres has started
-        options: >-
-          --health-cmd pg_isready
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
+        postgres:
+          # Docker Hub image
+          image: postgres12
+          # Provide the password for postgres
+          env:
+            POSTGRES_USER: root
+            POSTGRES_PASSWORD: secret
+            POSTGRES_DB: simple_bank
+          # Set health checks to wait until postgres has started
+          ports:
+            - 5432:5432
+          options: >-
+            --health-cmd pg_isready
+            --health-interval 10s
+            --health-timeout 5s
+            --health-retries 5
 
       steps:
       - uses: actions/checkout@v3
@@ -41,7 +43,7 @@ jobs:
         curl -L https://github.com/golang-migrate/migrate/releases/download/v4.15.2/migrate.linux-amd64.tar.gz | tar xvz
         sudo mv migrate /usr/bin/migrate
         which migrate
-        
+
       -name: Run migrate
        run: make migrateup
 
