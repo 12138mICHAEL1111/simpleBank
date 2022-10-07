@@ -13,16 +13,12 @@ jobs:
       runs-on: ubuntu-latest
 
       services:
-      # Label used to access the service container
         postgres:
-          # Docker Hub image
           image: postgres12
-          # Provide the password for postgres
           env:
             POSTGRES_USER: root
             POSTGRES_PASSWORD: secret
             POSTGRES_DB: simple_bank
-          # Set health checks to wait until postgres has started
           ports:
             - 5432:5432
           options: >-
@@ -45,8 +41,8 @@ jobs:
         sudo mv migrate /usr/bin/migrate
         which migrate
 
-      -name: Run migrate
-       run: make migrateup
+      - name: Run migrate
+        run: make migrateup
 
       - name: Test
         run: make test
