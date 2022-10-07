@@ -10,7 +10,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target `all'.  Stop.
 
 
-# Make data base, printed on Thu Aug 25 21:38:15 2022
+# Make data base, printed on Wed Sep  7 00:47:16 2022
 
 # Variables
 
@@ -71,7 +71,7 @@ VSCODE_CODE_CACHE_PATH = /Users/maike/Library/Application Support/Code/CachedDat
 # environment
 LOGNAME = maike
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # automatic
@@ -124,6 +124,7 @@ FLUTTER_STORAGE_BASE_URL = https://storage.flutter-io.cn
 GOSUMDB = off
 # automatic
 +F = $(notdir $+)
+ 
 # environment
 __CF_USER_TEXT_ENCODING = 0x1F5:0x19:0x34
 # environment
@@ -149,7 +150,6 @@ LANG = C
 # environment
 VSCODE_PID = 85865
 # variable set hash-table stats:
- 
 # Load=67/1024=7%, Rehash=0, Collisions=4/91=4%
 
 # Pattern-specific Variable Values
@@ -158,9 +158,9 @@ VSCODE_PID = 85865
 
 # Directories
 
-# . (device 16777222, inode 18827853): 9 files, no impossibilities.
+# . (device 16777222, inode 18827853): 13 files, no impossibilities.
 
-# 9 files, no impossibilities in 1 directories.
+# 13 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -186,7 +186,7 @@ all:
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
-.PHONY: postgres createdb dropdb migrateup migratedown sqlc
+.PHONY: postgres createdb dropdb migrateup migratedown sqlc test
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -206,10 +206,19 @@ sqlc:
 #  Modification time never checked.
 #  File has not been updated.
 
+test:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `makefile', line 20):
+	go test -v -cover ./...
+	
+
 # Not a target:
 makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-24 01:03:32
+#  Last modified 2022-08-26 01:19:13
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -258,7 +267,7 @@ migratedown:
 	
 
 # files hash-table stats:
-# Load=11/1024=1%, Rehash=0, Collisions=0/29=0%
+# Load=12/1024=1%, Rehash=0, Collisions=0/31=0%
 # VPATH Search Paths
 
 # No `vpath' search paths.
@@ -270,6 +279,6 @@ migratedown:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Thu Aug 25 21:38:15 2022
+# Finished Make data base on Wed Sep  7 00:47:16 2022
 
  

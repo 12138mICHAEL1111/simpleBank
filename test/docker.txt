@@ -1,0 +1,4 @@
+启动镜像：
+docker run -itd --name mysql8 -p 3306:3306 -e MYSQL_ROOT_PASSWORD=secret mysql
+
+docker exec -it mysql8 mysql -uroot -psecret 

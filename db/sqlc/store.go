@@ -44,6 +44,7 @@ type TransferTxResult struct{
 	ToEntry Entry
 }
 
+
 func (store *Store) TransferTx(ctx context.Context,arg CreateTransferParams) (TransferTxResult,error){
 	var result TransferTxResult
 	err := store.execTx(ctx, func(q *Queries) error {
@@ -66,7 +67,39 @@ func (store *Store) TransferTx(ctx context.Context,arg CreateTransferParams) (Tr
 		if err != nil{
 			return err
 		}
-		return nil
+
+		if arg.FromAccountID < arg.ToAccountID { //防止出现死锁，例如事务1 ，account1更新，account2更新，事务2，account2更新，account1更新就会出现死锁
+			result.FromAccount, result.ToAccount, err = addMoney(ctx, q, arg.FromAccountID, -arg.Amount, arg.ToAccountID, arg.Amount)
+		} else {
+			result.ToAccount, result.FromAccount, err = addMoney(ctx, q, arg.ToAccountID, arg.Amount, arg.FromAccountID, -arg.Amount)
+		}
+
+		return err
+
 	})
 	return result, err
+}
+
+
+func addMoney(
+	ctx context.Context,
+	q *Queries,
+	accountID1 int64,
+	amount1 int64,
+	accountID2 int64,
+	amount2 int64,
+) (account1 Account, account2 Account, err error) {
+	account1, err = q.AddAccountBalance(ctx, AddAccountBalanceParams{
+		ID:     accountID1,
+		Amount: amount1,
+	})
+	if err != nil {
+		return
+	}
+
+	account2, err = q.AddAccountBalance(ctx, AddAccountBalanceParams{
+		ID:     accountID2,
+		Amount: amount2,
+	})
+	return
 }
