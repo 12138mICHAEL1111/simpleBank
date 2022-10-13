@@ -2,3 +2,5 @@
 docker run -itd --name mysql8 -p 3306:3306 -e MYSQL_ROOT_PASSWORD=secret mysql
 
 docker exec -it mysql8 mysql -uroot -psecret 
+
+docker exec -it postgres12 psql -U root -d simple_bank
