@@ -10,7 +10,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target `all'.  Stop.
 
 
-# Make data base, printed on Mon Oct 17 19:21:30 2022
+# Make data base, printed on Tue Oct 18 01:52:14 2022
 
 # Variables
 
@@ -65,7 +65,7 @@ HOME = /Users/maike
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # default
-MAKEFILEPATH := /Applications/Xcode-beta.app/Contents/Developer/Makefiles
+MAKEFILEPATH := /Applications/Xcode.app/Contents/Developer/Makefiles
 # environment
 VSCODE_CODE_CACHE_PATH = /Users/maike/Library/Application Support/Code/CachedData/d045a5eda657f4d7b676dedbfa7aab8207f8a075
 # environment
@@ -79,7 +79,6 @@ VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # environment
 XPC_FLAGS = 0x0
 # default
- 
 MAKE = $(MAKE_COMMAND)
 # default
 MAKECMDGOALS := all
@@ -100,7 +99,7 @@ HOMEBREW_BOTTLE_DOMAIN = https://mirrors.ustc.edu.cn/homebrew-bottles
 # automatic
 %D = $(patsubst %/,%,$(dir $%))
 # default
-MAKE_COMMAND := /Applications/Xcode-beta.app/Contents/Developer/usr/bin/make
+MAKE_COMMAND := /Applications/Xcode.app/Contents/Developer/usr/bin/make
 # default
 .VARIABLES := 
 # environment
@@ -127,6 +126,7 @@ GOSUMDB = off
 +F = $(notdir $+)
 # environment
 __CF_USER_TEXT_ENCODING = 0x1F5:0x19:0x34
+ 
 # environment
 COMMAND_MODE = unix2003
 # default
@@ -148,7 +148,7 @@ SHLVL = 1
 # environment
 LANG = C
 # environment
-VSCODE_PID = 8551
+VSCODE_PID = 91636
 # variable set hash-table stats:
 # Load=67/1024=7%, Rehash=0, Collisions=4/91=4%
 
@@ -158,9 +158,9 @@ VSCODE_PID = 8551
 
 # Directories
 
-# . (device 16777222, inode 18827853): 21 files, no impossibilities.
+# . (device 16777222, inode 18827853): 22 files, no impossibilities.
 
-# 21 files, no impossibilities in 1 directories.
+# 22 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -195,7 +195,7 @@ migratedown1:
 	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose down 1
 	
 
-.PHONY: postgres createdb dropdb migrateup migratedown migratedown1 sqlc test server proto
+.PHONY: postgres createdb dropdb migrateup migratedown migratedown1 sqlc test server proto evans
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -222,8 +222,9 @@ proto:
 #  File has not been updated.
 #  commands to execute (from `makefile', line 32):
 	rm -f pb/*.go
-	protoc --proto_path =proto --go_out=pb --go_opt=paths=source_relative \
+	protoc --proto_path=proto --go_out=pb --go_opt=paths=source_relative \
 	--go-grpc_out=pb --go-grpc_opt=paths=source_relative \
+	--grpc-gateway_out=pb --grpc-gateway_opt=paths=source_relative \
 	proto/*.proto
 	
 
@@ -248,7 +249,7 @@ test:
 # Not a target:
 makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-10-17 18:40:48
+#  Last modified 2022-10-18 01:13:14
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -261,6 +262,15 @@ createdb:
 #  File has not been updated.
 #  commands to execute (from `makefile', line 5):
 	docker exec -it postgres12 createdb --username=root --owner=root simple_bank
+	
+
+evans:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `makefile', line 39):
+	evans --host localhost --port 9090 -r repl
 	
 
 # Not a target:
@@ -305,7 +315,7 @@ migratedown:
 	
 
 # files hash-table stats:
-# Load=16/1024=2%, Rehash=0, Collisions=0/38=0%
+# Load=17/1024=2%, Rehash=0, Collisions=0/40=0%
 # VPATH Search Paths
 
 # No `vpath' search paths.
@@ -316,8 +326,7 @@ migratedown:
 # # of strcache buffers: 1
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
- 
 
-# Finished Make data base on Mon Oct 17 19:21:30 2022
+# Finished Make data base on Tue Oct 18 01:52:14 2022
 
  
