@@ -10,7 +10,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 make: *** No rule to make target `all'.  Stop.
 
 
-# Make data base, printed on Wed Sep  7 00:47:16 2022
+# Make data base, printed on Mon Oct 17 19:21:30 2022
 
 # Variables
 
@@ -51,7 +51,7 @@ ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.jmkDNbB44q/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.oc9ikHb7Uu/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -67,7 +67,7 @@ HOME = /Users/maike
 # default
 MAKEFILEPATH := /Applications/Xcode-beta.app/Contents/Developer/Makefiles
 # environment
-VSCODE_CODE_CACHE_PATH = /Users/maike/Library/Application Support/Code/CachedData/e4503b30fc78200f846c62cf8091b76ff5547662
+VSCODE_CODE_CACHE_PATH = /Users/maike/Library/Application Support/Code/CachedData/d045a5eda657f4d7b676dedbfa7aab8207f8a075
 # environment
 LOGNAME = maike
 # environment
@@ -79,6 +79,7 @@ VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # environment
 XPC_FLAGS = 0x0
 # default
+ 
 MAKE = $(MAKE_COMMAND)
 # default
 MAKECMDGOALS := all
@@ -107,7 +108,7 @@ TMPDIR = /var/folders/m0/vjs_mkwd5m7b4gvwcsmbfl6c0000gn/T/
 # automatic
 *F = $(notdir $*)
 # environment
-VSCODE_IPC_HOOK = /Users/maike/Library/Application Support/Code/1.70.2-main.sock
+VSCODE_IPC_HOOK = /Users/maike/Library/Application Support/Code/1.72.2-main.sock
 # environment
 MallocNanoZone = 0
 # makefile
@@ -117,14 +118,13 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-XPC_SERVICE_NAME = application.com.microsoft.VSCode.28733658.28733664
+XPC_SERVICE_NAME = application.com.microsoft.VSCode.31281173.31281180
 # environment
 FLUTTER_STORAGE_BASE_URL = https://storage.flutter-io.cn
 # environment
 GOSUMDB = off
 # automatic
 +F = $(notdir $+)
- 
 # environment
 __CF_USER_TEXT_ENCODING = 0x1F5:0x19:0x34
 # environment
@@ -148,7 +148,7 @@ SHLVL = 1
 # environment
 LANG = C
 # environment
-VSCODE_PID = 85865
+VSCODE_PID = 8551
 # variable set hash-table stats:
 # Load=67/1024=7%, Rehash=0, Collisions=4/91=4%
 
@@ -158,9 +158,9 @@ VSCODE_PID = 85865
 
 # Directories
 
-# . (device 16777222, inode 18827853): 13 files, no impossibilities.
+# . (device 16777222, inode 18827853): 21 files, no impossibilities.
 
-# 13 files, no impossibilities in 1 directories.
+# 21 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -186,7 +186,16 @@ all:
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
-.PHONY: postgres createdb dropdb migrateup migratedown sqlc test
+migratedown1:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `makefile', line 20):
+	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose down 1
+	
+
+.PHONY: postgres createdb dropdb migrateup migratedown migratedown1 sqlc test server proto
 #  Implicit rule search has not been done.
 #  Modification time never checked.
 #  File has not been updated.
@@ -196,7 +205,7 @@ sqlc:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `makefile', line 17):
+#  commands to execute (from `makefile', line 23):
 	sqlc generate
 	
 
@@ -206,19 +215,40 @@ sqlc:
 #  Modification time never checked.
 #  File has not been updated.
 
+proto:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `makefile', line 32):
+	rm -f pb/*.go
+	protoc --proto_path =proto --go_out=pb --go_opt=paths=source_relative \
+	--go-grpc_out=pb --go-grpc_opt=paths=source_relative \
+	proto/*.proto
+	
+
+server:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  commands to execute (from `makefile', line 29):
+	go run main.go
+	
+
 test:
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `makefile', line 20):
+#  commands to execute (from `makefile', line 26):
 	go test -v -cover ./...
 	
 
 # Not a target:
 makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-26 01:19:13
+#  Last modified 2022-10-17 18:40:48
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -257,17 +287,25 @@ migrateup:
 	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose up
 	
 
+migrateup1:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+#  commands to execute (from `makefile', line 14):
+	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose up 1
+	
+
 migratedown:
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `makefile', line 14):
+#  commands to execute (from `makefile', line 17):
 	migrate -path db/migration -database "postgresql://root:secret@localhost:5432/simple_bank?sslmode=disable" -verbose down
 	
 
 # files hash-table stats:
-# Load=12/1024=1%, Rehash=0, Collisions=0/31=0%
+# Load=16/1024=2%, Rehash=0, Collisions=0/38=0%
 # VPATH Search Paths
 
 # No `vpath' search paths.
@@ -278,7 +316,8 @@ migratedown:
 # # of strcache buffers: 1
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
+ 
 
-# Finished Make data base on Wed Sep  7 00:47:16 2022
+# Finished Make data base on Mon Oct 17 19:21:30 2022
 
  
