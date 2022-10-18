@@ -1,1 +1,1 @@
-{"buildTargets":[".PHONY","createdb","dropdb","evans","migratedown","migratedown1","migrateup","migrateup1","postgres","proto","server","sqlc","test"],"launchTargets":[],"customConfigurationProvider":{"workspaceBrowse":{"browsePath":[],"compilerArgs":[]},"fileIndex":[]}}
+{"buildTargets":[".PHONY","createdb","dropdb","evans","make","migratedown","migratedown1","migrateup","migrateup1","postgres","proto","server","sqlc","test"],"launchTargets":[],"customConfigurationProvider":{"workspaceBrowse":{"browsePath":[],"compilerArgs":[]},"fileIndex":[]}}
